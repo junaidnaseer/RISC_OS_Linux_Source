@@ -92,7 +92,7 @@ stamp-prepare: mixed/Linux/Support/build.mk
 	done
 	mkdir -p Export/APCS-32/Lib/CLib/o
 	find $$ac/ \( -ipath "$$ac/Libraries/c++lib" -or -ipath "$$ac/Export/APCS-32/Lib/c++lib" \) -exec ln -sfn '{}' Export/APCS-32/Lib/c++lib \;
-	find $$ac/ \( -ipath "$$ac/Libraries/CLib/o/stubs*" -or -ipath "$$ac/Export/APCS-32/Lib/CLib/o/stubs" \) -exec ln -sfn '{}' Export/APCS-32/Lib/CLib/o/stubs_bootstrap \;
+	find $$ac/ \( -ipath "$$ac/Libraries/CLib/o/stubs*" -or -ipath "$$ac/Export/APCS-32/Lib/CLib/o/stubs*" \) -exec ln -sfn '{}' Export/APCS-32/Lib/CLib/o/stubs_bootstrap \;
 	touch stamp-prepare
 
 include mixed/Linux/Support/common.mk
