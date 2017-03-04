@@ -27,6 +27,7 @@
 #
 
 include Makefiles:StdTools
+include Makefiles:HostTools
 
 COMPONENT = LinuxSyscalls
 
@@ -42,10 +43,10 @@ h.syscall_list: Makefile <Lib$Dir>.Linux.asm.h.unistd
 
 o.gen_header: c.gen_header h.syscall_list h.syscalls <Lib$Dir>.Linux.asm.h.unistd
 	CDir o
-	%cc -Wpn -I<Lib$Dir>.Linux c.gen_header -c -o o.gen_header
+	${CC} -Wpn -I<Lib$Dir>.Linux c.gen_header -c -o o.gen_header
 
 gen_header: o.gen_header
-	%link -Output gen_header o.gen_header C:o.stubs_bootstrap
+	${LD} -Output gen_header o.gen_header <C$BootStubs>
 
 LinuxSyscalls: gen_header
 	Run gen_header > LinuxSyscalls
