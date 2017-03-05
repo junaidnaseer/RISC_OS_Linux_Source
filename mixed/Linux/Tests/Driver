@@ -34,6 +34,10 @@ PROCcall(I%+1,"FNcheck_mem(&2C000,&4000,tasks%(0))")
 PROCcall(I%+2,"FNcheck_mem(&20000,&10000,tasks%(0))")
 NEXT
 
+SYS "OS_PlatformFeatures", 0 TO F%
+PROCprint(CHR$10+"OS_PlatformFeatures 0 flags: "+FNbin(F%)+CHR$10)
+
+
 PROCprint("Tests Completed"+FNnl)
 SYS "IXSupport_LinuxSyscall",0,,,,,,,1
 STOP

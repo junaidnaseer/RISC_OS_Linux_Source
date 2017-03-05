@@ -80,3 +80,12 @@ FOR I%=start% TO start%+size%-4 STEP 4
 NEXT
 PROCok
 =TRUE
+
+DEF FNbin(V%)
+LOCAL I%,S$
+S$=""
+FOR I%=1 TO 32
+  S$=STR$(V% AND 1) + S$
+  V%= V% >> 1
+NEXT
+=S$
