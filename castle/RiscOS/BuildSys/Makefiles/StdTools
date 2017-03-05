@@ -62,7 +62,6 @@ MAKE            = amu
 MODGEN          = modgen
 MODSQZ          = modsqz
 NOP             = |
-MV              = rename
 NUMBER          = ${DO} RUN Build:Number
 PERL            = ${DO} <Perl$Dir>.perl
 RESGEN          = resgen
