@@ -50,8 +50,8 @@ build: run ${LINUX_ROM} comma2attr stamp-prepare
 	rm "Images/${TARGET}_rom" || true
 	find * -depth -exec ./comma2attr -- '{}' + ${fd_ACORN_CPP}<${ACORN_CPP} || true
 	RISC_OS_Alias_IXFSBoot='Exec IXFS:$$.dev.fd.4' ./run ${LINUX_ROM} --nofork \
-	${fd_BUILD_DIR}<. ${fd_ACORN_CPP}<'${ACORN_CPP}' 4< <(
-	echo '*BASIC
+	  ${fd_BUILD_DIR}<. ${fd_ACORN_CPP}<'${ACORN_CPP}' 4<< 'END'
+	*BASIC
 	*SetEval ROOL$$MaxJobs ${JOBS}
 	*Dir IXFS:$$.dev.fd.${fd_BUILD_DIR}
 	PRINT TIME$$
@@ -59,7 +59,7 @@ build: run ${LINUX_ROM} comma2attr stamp-prepare
 	QUIT
 	*BASIC -quit mixed.Linux.Support.BufferWriteC
 	*Obey -c mixed.Linux.Support.Build Linux ${TARGET} ${PHASES}
-	' )
+	END
 endif
 	chmod +x "Images/${TARGET}_rom"
 	ln -f Images/Linux_rom RISC_OS || true
