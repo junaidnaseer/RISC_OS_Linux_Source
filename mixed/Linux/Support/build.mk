@@ -64,6 +64,8 @@ build: run ${LINUX_ROM} comma2attr stamp-prepare
 	QUIT
 	*BASIC -quit mixed.Linux.Support.BufferWriteC
 	*Obey -c mixed.Linux.Support.Build Linux ${TARGET} ${PHASES}
+	*BASIC
+	SYS "IXSupport_LinuxSyscall",2,,,,,,,1
 	END
 endif
 	chmod +x "Images/${TARGET}_rom"
