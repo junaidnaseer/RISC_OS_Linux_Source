@@ -41,12 +41,9 @@ h.syscall_list: Makefile <Lib$Dir>.Linux.asm.h.unistd
 	CDir h
 	do sed -n -e 's/^\(.\)define \(_\(_ARM\)\?_NR_[_a-z0-9]*\)[ \t].*$/\1ifdef \2\nDEF(\2)\n\1endif/p' < <Lib$Dir>.Linux.asm.h.unistd > h.syscall_list
 
-o.gen_header: c.gen_header h.syscall_list h.syscalls <Lib$Dir>.Linux.asm.h.unistd
+gen_header: c.gen_header h.syscall_list h.syscalls <Lib$Dir>.Linux.asm.h.unistd
 	CDir o
-	${CC} -Wpn -I<Lib$Dir>.Linux c.gen_header -c -o o.gen_header
-
-gen_header: o.gen_header
-	${LD} -Output gen_header o.gen_header <C$BootStubs>
+	${CC} -Wpn -I<Lib$Dir>.Linux c.gen_header -o gen_header
 
 LinuxSyscalls: gen_header
 	Run gen_header > LinuxSyscalls
