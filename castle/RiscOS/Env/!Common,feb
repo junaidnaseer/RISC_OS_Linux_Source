@@ -103,9 +103,6 @@ set CPP$Dir CPP:o.^.^.C++Lib
 /canonical CPP$Dir
 set CPP$Path <CPP$Dir>.
 |
-If "<C$BootStubs>" = "" Then Set C$BootStubs C:o.stubs
-X /canonical C$BootStubs
-|
 set CLIB$Path      <CLibBoot$Dir>.,C:
 set CLib$BootDir   CLIB:o.^.^.CLib
 X /canonical CLib$BootDir
