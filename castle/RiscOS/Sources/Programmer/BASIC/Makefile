@@ -25,7 +25,10 @@ RESFSDIR      = ${RESDIR}.BASIC
 
 # Build during install_rom phase to avoid race conditions.
 CUSTOMROM     = TRUE
+
 install_rom: install_rom${CUSTOMROM}
+	@${NOP}
+
 rom:
 	@${NOP}
 
