@@ -72,6 +72,8 @@ install: ${TARGET_RAM}
         ${CP} ${TARGET_RAM} ${INSTDIR}.${COMPONENT} ${CPFLAGS}
         @echo ${COMPONENT}: ram module installed
 
+rom_link: install_rom
+
 install_rom: ${TARGET_ROM}
         ${CP} ${TARGET_ROM} ${INSTDIR}.${COMPONENT} ${CPFLAGS}
         @echo ${COMPONENT}: rom module installed
