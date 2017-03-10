@@ -95,7 +95,7 @@ ITable -type EXP
 #NetStatus
 Obey
 #ParallelDeviceDriver
-PortableHAL
+PortableHAL           -type C
 Pinboard
 PipeFS
 RAMFSFiler
