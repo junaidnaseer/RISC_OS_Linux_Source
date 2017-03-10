@@ -564,6 +564,16 @@ static void signal2(int signal, signal_handler* handler) {
   ix_sigaction(signal, &sigact, 0);
 }
 
+static void signal_fast(int signal, signal_handler* handler) {
+  struct sigaction2 sigact = {
+    .u.sigaction = handler,
+    .flags = SA_RESTORER | SA_SIGINFO | SA_ONSTACK | SA_RESTART | SA_NODEFER,
+    .mask = 0ULL,
+    .restorer = &signal_exit
+  };
+  ix_sigaction(signal, &sigact, 0);
+}
+
 #define STACK_SIZE (MINSIGSTKSZ + 512)  // FIXME size?
 
 // Allocate 2 * STACK_SIZE, but onlt inform Linux of half of it to prevent
@@ -778,7 +788,7 @@ static void hal_run(unsigned startFlags) {
   ix_prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
 
   // Register SWI handler
-  signal2(SIGSYS, swi_signal_handler);
+  signal_fast(SIGSYS, SWI_handler);
 
   // Try SECCOMP2
   struct sock_filter filter[] = {

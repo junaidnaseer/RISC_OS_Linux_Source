@@ -104,3 +104,4 @@ extern void call_irq(struct vcpu*);
 extern int start_ptrace(void);
 extern int HAL_IRQSource(void);
 extern int HAL_IRQEnable(int device);
+extern void SWI_handler(int signal, siginfo_t *info, struct ucontext *ucontext);

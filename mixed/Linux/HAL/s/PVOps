@@ -30,6 +30,7 @@
         GET     Hdr:Macros
         GET     Hdr:System
         GET     Hdr:Machine.<Machine>
+        GET     Hdr:LinuxSyscalls
 
         EXPORT  __PVirt_SetCPSR_c
         EXPORT  __PVirt_SetCPSR_cx
@@ -54,6 +55,7 @@
         EXPORT  init_vcpu
         EXPORT  test_stack
         EXPORT  call_irq
+        EXPORT  SWI_handler
 
 PVirt   SETA    PVSys
 
@@ -82,9 +84,45 @@ __PVirt_FindMode
 
 SetCPSR_Start
 
+SWI_handler
+        ; Entry r2 = pointer to struct struct ucontext
+        ; which is safe until sp is loaded
+        GetTLS
+        LDRB    r6, [r0, #vcpu_cpsr]
+        AND     lr, r6, #M32_bits
+        ADD     lr, lr, #__PVirt_VModeOffsets - . - 12
+        LDRB    lr, [pc, lr]
+        ADD     lr, lr, r0
+
+        ADD     r3, r2, #struct_ucontext_registers + 12 * 4
+        LDMIA   r3, {r2, r4, r5, r7, r8}
+        STMIA   lr, {r4, r5}
+
+        BIC     r8, r8, #0xFF
+        ORR     r8, r8, r6
+        STR     r8, [r0, #vcpu_spsr_svc]
+
+        MOV     lr, r7
+        LDR     r12, [r0, #vcpu_r13_svc]
+
+        ; Save CPSR
+        MOV     r1, #SVC32_mode + I32_bit
+        STRB    r1, [r0, #vcpu_cpsr]
+
+        ; Return PC = SVC vector
+        LDR     r1, [r0, #vcpu_vectors]
+        LDR     r4, [r1, #4]
+        STMDB   r12, {r2, r4}
+
+        ; Load registers
+        SUB     r3, r3, #12 * 4
+        LDMIA   r3, {r0-r11}
+        MOV     sp, r12
+        LDMDB   sp, {r12, pc}
+
 __PVirt_SWI
-        ADD     r1, sp, #5*4
-        LDR     r2, [r1, #-4]
+        ADD     r1, sp, #5*4  ; R1 = caller SP
+        LDR     r2, [r1, #-4] ; R2 = caller LR
         ADD     r3, lr, #4
         GetTLS
 
