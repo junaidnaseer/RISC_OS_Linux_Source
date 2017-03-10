@@ -43,11 +43,10 @@ o._dirs:
 HAL_Linux: ${OBJS} o._dirs
 	${MKDIR} <Lib$Dir>.Linux.o
 	${MKDIR} <Lib$Dir>.Linux.s
-	${CP} HALSyms <Lib$Dir>.Linux.o.HALSyms1 F~C~N~V
-	${LD} -FIRST Top(HEAD) -o HAL_Linux -bin -split -base ${ADDRESS} -RW-Base ${ADDRESS_RW} -Symdefs <Lib$Dir>.Linux.o.HALSyms1 -Symbols HAL_Linux_sym ${OBJS}
+	${CP} HALSyms <Lib$Dir>.Linux.o.HALSyms F~C~N~V
+	${LD} -FIRST Top(HEAD) -o HAL_Linux -bin -split -base ${ADDRESS} -RW-Base ${ADDRESS_RW} -Symdefs <Lib$Dir>.Linux.o.HALSyms -Symbols HAL_Linux_sym ${OBJS}
 	BASIC -quit Merge
-	Libfile -c <Lib$Dir>.Linux.o.HALSyms <Lib$Dir>.Linux.o.HALSyms1
-	${SED} -n -e 's/\(0x........\) \(A\|D\) \(.*\)/\3 * \1/p' < <Lib$Dir>.Linux.o.HALSyms1 > <Hdr$Dir>.Global.CPU.PVSyms
+	${SED} -n -e 's/\(0x........\) \(A\|D\) \(.*\)/\3 * \1/p' < <Lib$Dir>.Linux.o.HALSyms > <Hdr$Dir>.Global.CPU.PVSyms
 	echo <32>END { >> <Hdr$Dir>.Global.CPU.PVSyms }
 	@${ECHO} Linux HAL built
 
