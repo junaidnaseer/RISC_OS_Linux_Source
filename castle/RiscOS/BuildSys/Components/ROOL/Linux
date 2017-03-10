@@ -63,7 +63,7 @@ ScreenModes
 BASIC105
 BASIC64
 BlendTable
-BufferManager
+BufferManager         -type C
 ColourTrans
 Debugger
 #DeviceFS
