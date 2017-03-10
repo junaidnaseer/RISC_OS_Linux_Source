@@ -59,7 +59,7 @@ PVOpsRelocation SETA 0
 
         MACRO
         PVJumpTable
-      [ PVSys > 1
+      [ PVSys > 0
        ; FIXME - temporary hack
 __PVirt_SetCPSR_csf
 __PVirt_SetCPSR_cxsf MSR     cpsr_sf, r1
