@@ -48,6 +48,7 @@ CCFLAGS = -c -depend !Depend -IC:
 ASFLAGS = -depend !Depend
 CPFLAGS = ~cfr~v
 WFLAGS  = ~c~v
+ADDRESS ?= 0
 
 #
 # Program specific options:
@@ -61,7 +62,8 @@ FPEANCHOR ?= Low
 #
 # Generic rules:
 #
-rom: ${TARGET_ROM}
+
+rom: $(if ${DELAY_LINK}, o.fpe_rom, ${TARGET_ROM})
         @echo ${COMPONENT}: rom module built
 
 export: ${EXPORTS}
@@ -94,9 +96,19 @@ ${TARGET_RAM}: o.fpe_ram
         ${MKDIR} rm.${MACHINE}
         ${LD} -rmf -o $@ o.fpe_ram
 
-${TARGET_ROM}: o.fpe_rom
+include $(wildcard OLD_ADDRESS)
+
+ifneq (${ADDRESS},${OLD_ADDRESS})
+FORCEROMLINK = FORCE
+endif
+
+FORCE: ; ${NOP}
+
+${TARGET_ROM}: o.fpe_rom ${FORCEROMLINK}
         ${MKDIR} rm.${MACHINE}
-        ${LD} -rmf -o $@ o.fpe_rom
+        Remove $@
+        Echo OLD_ADDRESS=${ADDRESS} { > OLD_ADDRESS }
+        ${LD} -Base ${ADDRESS} -rmf -o $@ o.fpe_rom ${PVLIBS}
 
 o.fpe_ram: s.${MACHINE}
 	${MKDIR} o

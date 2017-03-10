@@ -97,7 +97,7 @@ FPEAnchor
 ;
         ASSERT  Module_Version >= 400
 
-        PVJumpTable
+        PVOpsImports
 
 ;
 ; **********************************************************************
