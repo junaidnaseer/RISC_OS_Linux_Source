@@ -43,7 +43,7 @@ VFPSupport            -type EXP
 HAL_Linux             -options ADDRESS=0x33000000 ADDRESS_RW=0x33004000
 Kernel                -at 0x33010000 -options ASFLAGS="-PD \"CMOS_Override SETS \\\"= FileLangCMOS,70\\\"\""
 Podule -type EXP
-FileSwitch
+FileSwitch            -type C
 ResourceFS
 TerritoryManager
 Messages
