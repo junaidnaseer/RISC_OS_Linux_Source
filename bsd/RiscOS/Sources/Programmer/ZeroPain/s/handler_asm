@@ -39,7 +39,11 @@ PVirt   SETA    PVSys
         EXPORT  handler_remove
         IMPORT  handler_do
 
+        ASSERT  PVSys != 1
+ [ PVSys = 2
+PVSys   SETA    1
         PVJumpTable
+ ]
 
 handler_install
         Entry
@@ -50,6 +54,8 @@ handler_install
         LDMIA   r0, {r1-r2}
         ADR     r0, reloc_offsets
         STMIA   r0, {r1-r2}
+
+        InitPVOps
 
         ; Install handler
         ; IRQs off for safety!
@@ -90,7 +96,7 @@ handler_stub    ROUT
         ; Get a work register
         STR     lr, [sp, #-12]!
         ; Check DFAR lies within zero page
-      [ PVSys = 2
+      [ PVirt = 2
         STR     r0, [sp, #-4]!
         GetTLS
         LDR     lr, [r0, #vcpu_DFAR]
@@ -113,7 +119,7 @@ handler_stub    ROUT
         LDRNE   lr, [sp], #12
         LDRNE   pc, old_handler
         SUB     sp, sp, #15*4
-      [ PVSys = 2
+      [ PVirt = 2
         STMIA   sp, {r0-r12}
         MOV     r3, lr
         GetTLS
@@ -146,7 +152,7 @@ handler_stub    ROUT
         STMIA   sl, {r1-r2}
         ADD     sl, sl, #540
         ; Grab system control register
-      [ PVSys = 2
+      [ PVirt = 2
         MOV     r1, #(1<<22) ; FIXME
       |
         MRC     p15, 0, r1, c1, c0, 0
@@ -166,7 +172,7 @@ handler_stub    ROUT
         TST     r1, #3 ; SVC mode?
         BNE     %FT50
         ; USR mode
-      [ PVSys = 2
+      [ PVirt = 2
         GetTLS
         LDR     r1, [sp, #13*4]
         LDR     r2, [sp, #14*4]
