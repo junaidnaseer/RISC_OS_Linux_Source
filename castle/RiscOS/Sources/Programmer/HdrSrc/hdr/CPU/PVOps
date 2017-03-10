@@ -59,7 +59,9 @@ PVOpsRelocation SETA 0
 
         MACRO
         PVJumpTable
-      [ PVSys > 0
+      IF PVSys = 2
+        PVOpsImports
+      ELIF PVSys = 1
        ; FIXME - temporary hack
 __PVirt_SetCPSR_csf
 __PVirt_SetCPSR_cxsf MSR     cpsr_sf, r1
@@ -95,7 +97,7 @@ __PVirt_SWI          LDR     pc, =0x33000058
         EXPORT  __PVirt_LoadUsrRegisters
         EXPORT  __PVirt_SWI
         EXPORT  __PVirt_syscall
-      ]
+      ENDIF
         MEND
 
         MACRO
