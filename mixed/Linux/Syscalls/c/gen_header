@@ -62,6 +62,8 @@ int main(void) {
   DEF(HWCAP2_SHA2)
   DEF(HWCAP2_CRC32)
 
+  DEF(CLONE_VM)
+
   DEF2("struct_ucontext_mcontext", offsetof(struct ucontext, uc_mcontext))
   DEF2("struct_ucontext_registers", offsetof(struct ucontext, uc_mcontext.arm_r0))
 
