@@ -24,7 +24,7 @@
 ; Assembler source for FPA support code and emulator
 ; ==================================================
 ; Header file for the riscos veneer.
-;
+; 
 
                 GBLS    VeneerName      ;The name of the veneer to use
 VeneerName      SETS    "riscos"

@@ -104,7 +104,7 @@ endif
 
 FORCE: ; ${NOP}
 
-${TARGET_ROM}: o.fpe_rom ${FORCEROMLINK}
+${TARGET_ROM}: o.fpe_rom ${FORCEROMLINK} ${PVLIBS}
         ${MKDIR} rm.${MACHINE}
         Remove $@
         Echo OLD_ADDRESS=${ADDRESS} { > OLD_ADDRESS }
