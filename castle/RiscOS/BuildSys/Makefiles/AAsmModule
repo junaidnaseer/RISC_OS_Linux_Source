@@ -174,8 +174,13 @@ endif
 
 FORCE: ; ${NOP}
 
-rom${CUSTOMROM}: $(if ${DELAY_LINK}, ${ROM_MODULE}, ${ROM_OBJECT} ${ROM_LIBS} ${DIRS} ${ROM_DEPEND})
+ifeq (${DELAY_LINK},YES)
+rom${CUSTOMROM}: ${ROM_OBJECT} ${ROM_LIBS} ${DIRS} ${ROM_DEPEND}
+        @${ECHO} ${COMPONENT}: rom module built (link delayed)
+else
+rom${CUSTOMROM}: ${ROM_MODULE}
         @${ECHO} ${COMPONENT}: rom module built
+endif
 
 rom_link: install_rom
 
