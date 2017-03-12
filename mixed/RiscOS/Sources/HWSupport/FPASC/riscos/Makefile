@@ -63,8 +63,13 @@ FPEANCHOR ?= Low
 # Generic rules:
 #
 
-rom: $(if ${DELAY_LINK}, o.fpe_rom, ${TARGET_ROM})
+ifeq (${DELAY_LINK},YES)
+rom${CUSTOMROM}: o.fpe_rom
+        @echo ${COMPONENT}: rom module built (link delayed)
+else
+rom${CUSTOMROM}: ${TARGET_ROM}
         @echo ${COMPONENT}: rom module built
+endif
 
 export: ${EXPORTS}
         @echo ${COMPONENT}: export complete
