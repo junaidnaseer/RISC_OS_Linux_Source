@@ -45,6 +45,7 @@
         EXPORT  start_ptrace
         EXPORT  HAL_Header
         EXPORT  signal_exit
+        EXPORT  ptrace_swi_jump
 
 image_start
         DCB     &7F, "ELF"
@@ -224,6 +225,10 @@ start_ptrace
         LDMMIFD sp!, {r4, r7, pc} ; Return on failure.
         LDR     sp, =ptrace_stack
         B       do_ptrace         ; Parent runs ptrace loop
+
+        NOP
+ptrace_swi_jump
+        LDMFD   sp!, {r0, lr, pc}
 
         AREA    Init_Stack, DATA, NOINIT
         %       64 * 4
