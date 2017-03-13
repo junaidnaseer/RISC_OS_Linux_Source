@@ -47,6 +47,6 @@ Linux RISC OS command line options:
   --notimers     Disable HAL timers
   --noaborts     Disable aborts - RISC OS will die with SIGSEGV
   --nofork       Dont't fork - for debuging
-
+  --noseccomp    Disable seccomp support
 
 
