@@ -714,10 +714,6 @@ int main(int argc, char **argv) {
     auxv += 2;
   }
 
-  // Set alternative stack for signal handlers,
-  // RISC OS stack may not exist or be usable.
-  ix_sigaltstack(&signal_stack_struct, 0);
-
   bool nofork = false;
 
   for(int i = 1; i != argc; ++i) {
@@ -926,6 +922,10 @@ static void hal_run(unsigned startFlags) {
   ix_set_tls(&init_vcpu);
 
   init_swi();
+
+  // Set alternative stack for signal handlers,
+  // RISC OS stack may not exist or be usable.
+  ix_sigaltstack(&signal_stack_struct, 0);
 
   // Test SWI handling.
   ix_MESSAGE(2, "Hello ");
