@@ -24,8 +24,9 @@ fd_ACORN_CPP=9
 
 SHELL=/bin/bash
 .SHELLFLAGS=-e -c
-
 .ONESHELL:
+
+.SILENT:
 .DELETE_ON_ERROR:
 .PHONY: all build check fast
 
@@ -50,6 +51,10 @@ build: rpcemu/rpcemu boot_iomd_rom stamp-prepare
 	mv "Images/${TARGET}_rom",??? "Images/${TARGET}_rom" || true
 else
 build: run ${LINUX_ROM} comma2attr stamp-prepare
+	uname -a
+	echo Building GIT commit: $$(git rev-parse HEAD)
+	echo '#define VERSION "GIT commit: '$$(git rev-parse HEAD)'\n"' > mixed/Linux/HAL/h/version1
+	cmp --quiet mixed/Linux/HAL/h/version1 mixed/Linux/HAL/h/version || cp mixed/Linux/HAL/h/version1 mixed/Linux/HAL/h/version
 	rm "Images/${TARGET}_rom" || true
 	find '${ACORN_CPP}' ./* -depth -exec ./comma2attr -- '{}' + ${fd_ACORN_CPP}<${ACORN_CPP} || true
 	RISC_OS_Alias_IXFSBoot='Exec IXFS:$$.dev.fd.4' ./run ${LINUX_ROM} --nofork \
