@@ -67,4 +67,6 @@ install_rom: HAL_Linux
 h.version:
 	Echo { > h.version }
 
+o.Main: h.version
+
 include Depends
