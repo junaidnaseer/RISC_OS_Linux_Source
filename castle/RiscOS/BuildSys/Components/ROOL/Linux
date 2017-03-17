@@ -61,7 +61,7 @@ ScreenModes
 #PS2Driver
 #ADFSFiler
 BASIC105              -type C
-BASIC64
+BASIC64               -type C
 BlendTable
 BufferManager         -type C
 ColourTrans
