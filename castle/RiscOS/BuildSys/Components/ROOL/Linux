@@ -60,7 +60,7 @@ ScreenModes
 #Mouse
 #PS2Driver
 #ADFSFiler
-BASIC105
+BASIC105              -type C
 BASIC64
 BlendTable
 BufferManager         -type C
