@@ -22,6 +22,7 @@ COMPONENT    ?= BASIC105
 VFPASM       ?= TRUE
 RESDIR       ?= _!_x_!_
 RESFSDIR      = ${RESDIR}.BASIC
+ROM_LIBS      = ${PVLIBS}
 
 # Build during install_rom phase to avoid race conditions.
 CUSTOMROM     = TRUE
