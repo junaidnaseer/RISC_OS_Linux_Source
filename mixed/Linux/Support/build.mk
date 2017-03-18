@@ -39,6 +39,7 @@ build: rpcemu/rpcemu boot_iomd_rom stamp-prepare
 	rm "Images/${TARGET}_rom" || true
 	test ! -f done* || rm done*
 	ln -sfn /dev/fd/${fd_ACORN_CPP} AcornC.C++
+	echo '#define VERSION "GIT commit: '$$(git rev-parse HEAD)'\n"' > mixed/Linux/HAL/h/version
 	echo '*Set Run$$Path HostFS:$$.AcornC/C++.!SetPaths.Lib32.,<Run$$Path>
 	*Set C$$Path HostFS:$$.AcornC/C++.Export.APCS-32.Lib.c++lib.,HostFS:$$.AcornC/C++.Libraries.c++lib.,HostFS:$$.AcornC/C++.Export.APCS-32.Lib.CLib.,HostFS:$$.AcornC/C++.Libraries.CLib.
 	*Obey mixed.Linux.Support.Build rpcemu ${TARGET} ${PHASES}' > '!Boot,fea'
