@@ -90,8 +90,8 @@ check: rpcemu/rpcemu HardDisc4/stamp
 endif
 
 ifeq (${TARGET}, Linux)
-check: ${QEMU}
-	mixed/Linux/Tests/runner.sh ${QEMU} ./RISC_OS
+check: run comma2attr
+	mixed/Linux/Tests/runner.sh ./run ./RISC_OS
 endif
 
 fast: PHASES=install_rom join
