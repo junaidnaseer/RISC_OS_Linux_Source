@@ -30,7 +30,7 @@
 #include <SDL.h>
 #include <SDL_scancode.h>
 #include <stdio.h>
-#include "../../../Export/APCS-32/C/Global/h/Keyboard"
+#include "Keyboard.h"
 
 struct keys { int sdl, ro; };
 

@@ -13,11 +13,31 @@ comma2attr: mixed/Linux/Support/comma2attr.c
 	gcc -std=gnu99 -g `pwd`/mixed/Linux/Support/comma2attr.c -o comma2attr
 	setfattr -n user.RISC_OS.LoadExec -v 0x00e6ffff00000000 $@ || true
 
-mixed/Linux/Support/RISC_OS: mixed/Linux/Support/RISC_OS.xz
-	setfattr -n user.RISC_OS.LoadExec -v 0x00fdffff00000000 mixed/Linux/Support/RISC_OS.xz || true
-	xz --force --decompress --stdout mixed/Linux/Support/RISC_OS.xz >$@
-	chmod +x $@
-	setfattr -n user.RISC_OS.LoadExec -v 0x00e5ffff00000000 $@ || true
+mixed/Linux/Support/bin/!Boot/Linux/RISC_OS:
+	git submodule init
+	git submodule update
+
+update-binary:
+	shopt -s extglob
+	git clean -fxd
+	git reset --hard
+	(cd mixed/Linux/Support/bin && git reset --hard)
+	git submodule update
+	SOURCE=$$(git rev-parse HEAD)
+	#
+	echo "# Source and build GIT commits
+	SOURCE=$$SOURCE
+	BINARY=$$(cd mixed/Linux/Support/bin && git rev-parse HEAD)
+	LINUX='$$(uname -a)'
+	" > mixed/Linux/Support/bin/!Boot/Linux/source
+	#
+	$(MAKE) JOBS=$$(getconf _NPROCESSORS_ONLN)
+	(cd mixed/Linux/Support/bin && git checkout master)
+	cp --reflink=auto --preserve=mode,xattr RISC_OS mixed/Linux/Support/?(sdl.cpp|sdlkey.c|Keyboard.h|protocol.h) mixed/Linux/Support/bin/!Boot/Linux
+	#
+	cd mixed/Linux/Support/bin
+	git add -u
+	git commit -m "Rebuilt binary from $$SOURCE"
 
 rpcemu/stamp: ${RPCEMU}
 	rm -rf rpcemu rpcemu-0.8.15 || true

@@ -5,7 +5,7 @@ QEMU_SRC=${HOME}/Downloads/qemu-2.8.0.tar.bz2
 RPCEMU=${HOME}/Downloads/rpcemu-0.8.15.tar.gz
 IOMD=${HOME}/Downloads/IOMD-Soft.5.22.zip
 
-LINUX_ROM=mixed/Linux/Support/RISC_OS
+LINUX_ROM=mixed/Linux/Support/bin/!Boot/Linux/RISC_OS
 ACORN_CPP=../DDE/AcornC.C++
 
 #JOBS=$(shell getconf _NPROCESSORS_ONLN)

@@ -54,7 +54,7 @@ using std::cerr;
 using std::endl;
 
 
-#include "../SocketKVM/h/protocol"
+#include "protocol.h"
 #include "sdlkey.h"
 
 static const int mode_change = 5555;
