@@ -9,6 +9,8 @@ timeout --foreground -sKILL 30 $* --nofork --noaborts << 'END'
 *ChangeDynamicArea -ramfssize 8M
 TIME=0
 REPEAT:UNTIL TIME>10
+TEXTLOAD "IXFS:$.proc.self.cwd.mixed.Linux.Tests.TTest"
+RUN
 SYS "IXSupport_LinuxSyscall",,,,,,,,1
 !0=0
 END
