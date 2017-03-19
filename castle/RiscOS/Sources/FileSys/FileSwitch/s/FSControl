@@ -469,7 +469,7 @@ Run_TransientFile
 
         ASSERT  transient_savearea = 0 
         STMIA   r2, {r6-r9}             ; r0-r5 already stacked
-        ADD     r9, r2, #4*4            ; Setup for write below
+        ADD     r7, r2, #4*4            ; Setup for write below
 
         ; Load the code after the info block
         MOV     r0, #object_file
@@ -497,7 +497,7 @@ Run_TransientFile
         LDR     r1, commandtailptr
 
         pvSWI   OS_LeaveOS              ; USR mode
-        STMIA   r9, {r13,r14}           ; Must preserve r13_usr and r14_usr
+        STMIA   r7, {r13,r14}           ; Must preserve r13_usr and r14_usr
 
         ADD     r5, r3, r5              ; r12 -> transient workspace. Not bank
         SUB     wp, r5, #transient_code ; Must correct as r5 = info + code
