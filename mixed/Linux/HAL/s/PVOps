@@ -87,7 +87,8 @@ SetCPSR_Start
 SWI_handler
         ; Entry r2 = pointer to struct struct ucontext
         ; which is safe until sp is loaded
-        GetTLS
+        MOV     lr, pc
+        LDR     pc, =0xFFFF0FE0
         LDRB    r6, [r0, #vcpu_cpsr]
         AND     lr, r6, #M32_bits
         ADD     lr, lr, #__PVirt_VModeOffsets - . - 12
@@ -112,13 +113,13 @@ SWI_handler
         ; Return PC = SVC vector
         LDR     r1, [r0, #vcpu_vectors]
         LDR     r4, [r1, #4]
-        STMDB   r12, {r2, r4}
+        STMFD   r12!, {r2, r4}
 
         ; Load registers
         SUB     r3, r3, #12 * 4
         LDMIA   r3, {r0-r11}
         MOV     sp, r12
-        LDMDB   sp, {r12, pc}
+        LDMFD   sp!, {r12, pc}
 
 __PVirt_SWI
         ADD     r1, sp, #5*4  ; R1 = caller SP

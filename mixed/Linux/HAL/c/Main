@@ -508,6 +508,9 @@ static void irq_signal_handler(int signal, siginfo_t *info, struct ucontext *uco
     return;
   }
 
+  // In kuser helper called from SetCPSR_c etc, so just return.
+  if (r->arm_pc >= 0xFFFF0000 && r->arm_pc < 0xFFFF1000 && r->arm_lr >= (uint32_t)&SetCPSR_Start && r->arm_lr < (uint32_t)&SetCPSR_End) return;
+
   if (r->arm_pc == (uint32_t)&SetCPSR_End) {
     // At the end of SetCPSR_c
     // LDM isn't atomic, so can't back up simply, instead complete it.
