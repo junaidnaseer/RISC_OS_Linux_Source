@@ -45,7 +45,7 @@ Initial_IRQ_Code ROUT
         Push    r0
         STR     sp_irq, [r12, #IRQsema]
   [ PVSys > 0
-        GetTLS
+        BL      __PVirt_GetVCPU
         LDR     r11, [r0, #vcpu_r14_svc]
         Push    r11
   ]
@@ -67,7 +67,7 @@ Initial_IRQ_Code ROUT
         Pull    "r10"
 
   [ PVSys > 0
-        GetTLS
+        BL      __PVirt_GetVCPU
         Pull    r11
         STR     r11, [r0, #vcpu_r14_svc]
   ]

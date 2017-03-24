@@ -3886,7 +3886,7 @@ Code_CallBackHandler ROUT
         MyCLREX r0, r1
   [ PVSys > 0
         ASSERT  PVSys = 2
-        GetTLS
+        BL      __PVirt_GetVCPU
         ADR     r11, CallBackRegs
         Pull    "r14"                   ; SVC r14 -> USR register buffer
         LDMIA   r11!, {r1-r10}

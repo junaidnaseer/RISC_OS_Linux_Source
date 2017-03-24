@@ -64,7 +64,7 @@ PVirt   SETA    PVSys
 
 __PVirt_GetCPSR
         STR     lr, [sp, #-4]!
-        GetTLS
+        BL      __PVirt_GetVCPU
         LDRB    lr, [r0, #vcpu_cpsr]
         MRS     r0, CPSR
         BIC     r0, r0, #0xFF ; ARMv7 says the privileged bits are UNKNOWN.
@@ -73,7 +73,7 @@ __PVirt_GetCPSR
 
 __PVirt_FindMode
         STR     lr, [sp, #-4]!
-        GetTLS
+        BL      __PVirt_GetVCPU
         LDRB    lr, [r0, #vcpu_cpsr]
         AND     lr, lr, #M32_bits
         ADD     lr, lr, #__PVirt_VModeOffsets - . - 12
@@ -127,7 +127,7 @@ __PVirt_SWI
         ADD     r1, sp, #5*4  ; R1 = caller SP
         LDR     r2, [r1, #-4] ; R2 = caller LR
         ADD     r3, lr, #4
-        GetTLS
+        BL      __PVirt_GetVCPU
 
         ; Save LR and SP
         LDRB    lr, [r0, #vcpu_cpsr]
@@ -165,7 +165,7 @@ __PVirt_LoadUsrRegisters
         ; r2 = new calling mode sp
         ; r3 = new CPSR
         MOV     r9, lr
-        GetTLS
+        BL      __PVirt_GetVCPU
         LDRB    r4, [r0, #vcpu_cpsr]
         AND     r4, r4, #M32_bits
         ADD     r4, r4, #__PVirt_VModeOffsets - . - 12
@@ -247,7 +247,7 @@ __PVirt_SetCPSR_cx
 
         MRS     r3, CPSR
         ADD     ip, lr, #4      ; Adjust return address to avoid MSR CPSR_c
-        GetTLS
+        BL      __PVirt_GetVCPU
         LDR     lr, [sp, #5*4]  ; Read callers LR
         STR     ip, [sp, #5*4]  ; Put old PC in it's place
 

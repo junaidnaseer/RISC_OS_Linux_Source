@@ -98,7 +98,7 @@ handler_stub    ROUT
         ; Check DFAR lies within zero page
       [ PVirt = 2
         STR     r0, [sp, #-4]!
-        GetTLS
+        BL      __PVirt_GetVCPU
         LDR     lr, [r0, #vcpu_DFAR]
         LDR     r0, [sp], #4
       |
@@ -122,7 +122,7 @@ handler_stub    ROUT
       [ PVirt = 2
         STMIA   sp, {r0-r12}
         MOV     r3, lr
-        GetTLS
+        BL      __PVirt_GetVCPU
         LDR     r1, [r0, #vcpu_r13_usr]
         LDR     r2, [r0, #vcpu_r14_usr]
         STR     r1, [sp, #13*4]
@@ -173,7 +173,7 @@ handler_stub    ROUT
         BNE     %FT50
         ; USR mode
       [ PVirt = 2
-        GetTLS
+        BL      __PVirt_GetVCPU
         LDR     r1, [sp, #13*4]
         LDR     r2, [sp, #14*4]
         STR     r1, [r0, #vcpu_r13_usr]

@@ -271,7 +271,7 @@ SBRKPT ROUT
         BNE     %FT01                   ; NE if not in user mode
   [ PVSys > 1
         STMFD   r10!, {r0-r9}
-        GetTLS
+        BL      __PVirt_GetVCPU
         LDR     r4, [r0, #vcpu_r13_usr]
         LDR     r5, [r0, #vcpu_r14_usr]
         MOV     r0, r10

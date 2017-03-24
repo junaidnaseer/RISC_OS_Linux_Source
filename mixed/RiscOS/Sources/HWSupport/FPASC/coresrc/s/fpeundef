@@ -75,7 +75,7 @@ FPUndefHandler
         STMIA   Rsp,{R0-R12}
         MOV     Rwp,LR
         STR     LR,[Rsp,#15*4]
-        GetTLS
+        BL      __PVirt_GetVCPU
         LDR     R12,[R0,#vcpu_r13_usr]
         STR     R12,[Rsp,#13*4]
         LDR     R12,[R0,#vcpu_r14_usr]

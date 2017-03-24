@@ -122,7 +122,7 @@ MOVEMEMORY
         LDR     R4,[ARGP,#DIMLOCAL]     ;are there any DIM LOCALs in use?
  [ PVSys > 0
         ASSERT  PVSys = 2
-        GetTLS
+        BL      __PVirt_GetVCPU
         LDR     R0,[R0,#vcpu_r13_svc]
         STR     SP,[R0,#-4]!            ;get user mode stack pointer
  |

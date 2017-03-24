@@ -440,7 +440,7 @@ SeriousErrorVCollect ROUT
         ASSERT  PVirt == 2
         Push    "r3-r5"
         MOV     r3, r0
-        GetTLS
+        BL      __PVirt_GetVCPU
         LDR     r4, [r0, #vcpu_r13_usr]
         LDR     r5, [r0, #vcpu_r14_usr]
         STMIA   r3!, {r4, r5}

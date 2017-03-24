@@ -596,7 +596,7 @@ SWIIdle
 Idle_Linux
         Push    "R0-R4,R7"
         SUB     SP, SP, #8
-        GetTLS
+        BL      __PVirt_GetVCPU
         MOV     R4, R0
 
         MOV     R7, #__NR_rt_sigprocmask

@@ -959,7 +959,7 @@ Do_CallBack_postpone_already_clear
   [ PVSys > 1
         STMIA   r14, {r0-r12}
         MOV     r2, r14
-        GetTLS
+        BL      __PVirt_GetVCPU
         LDR     r1, [r0, #vcpu_r13_usr]
         STR     r1, [r2, #4*13]
         LDR     r1, [r0, #vcpu_r14_usr]
