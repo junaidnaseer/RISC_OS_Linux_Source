@@ -137,8 +137,8 @@ VecRdLine ROUT
         ANDNE   R0, R7, #&FF            ; echo char -> R0
 
         B       %BT05                   ; echo character
-
-60      SWI     XOS_NewLine
+60
+        KSWI    XOS_NewLine
         BVS     ReadLine_Vset
 
 ; insert code here to call NetVec with R0 = &0D

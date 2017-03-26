@@ -311,7 +311,8 @@ exitpp    MOV     stack, r9
           CMP     R0, R3
           MOVGT   R0, #13           ; next tab stop too far : newline
           BGT     %BT21
-22        SWI     XOS_WriteI+" "
+22
+          KSWI    XOS_WriteI+" "
           BVS     exitpp
           ADD     R4, R4, #1
           SUBS    r5, r5, #1

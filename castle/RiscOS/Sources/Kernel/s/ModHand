@@ -302,20 +302,20 @@ ModuleInit   Entry "r0-r12"                             ; call here on system st
 
 70
  [ DebugROMInit                                         ; print names in ROM module init for debugging
-        SWI     XOS_WriteS
+        KSWI    XOS_WriteS
         =       "init mod ",0
         ALIGN
         LDR     r0, [r11, #ROMModule_Name]
-        SWI     XOS_Write0
+        KSWI    XOS_Write0
  ]
         BL      InitialiseROMModule
  [ DebugROMInit
         BVC     %FT79
-        SWI     XOS_WriteS
+        KSWI    XOS_WriteS
         =       " => error: ",0
         ALIGN
         ADDVC   r0, r0, #4
-        SWIVC   XOS_Write0
+        KSWIVC  XOS_Write0
 79
         WritePSRc SVC_mode+I_bit,r14                    ; this bit of gymnastis ensures that requested
         LDR     r0, =ZeroPage                           ; callbacks don't fire when doing the page scroll check
@@ -323,7 +323,7 @@ ModuleInit   Entry "r0-r12"                             ; call here on system st
         BIC     r14, r1, #CBack_VectorReq               ; callbacks scheduled during ROM init are ordered
         STRB    r14, [r0, #CallBack_Flag]               ; differently for DebugROMInit {TRUE} than {FALSE}
 
-        SWI     XOS_NewLine                             ; enables interrupts itself
+        KSWI    XOS_NewLine                             ; enables interrupts itself
 
         WritePSRc SVC_mode+I_bit,r14
         TST     r1, #CBack_VectorReq
@@ -338,9 +338,9 @@ ModuleInit   Entry "r0-r12"                             ; call here on system st
 
 90
  [ DebugROMInit
-        SWI     XOS_WriteS
+        KSWI    XOS_WriteS
         =       "mod init done",0
-        SWI     XOS_NewLine
+        KSWI    XOS_NewLine
  ]
         MOV     r1, #RMASizeCMOS
         MOV     r0, #ReadCMOS
@@ -610,7 +610,7 @@ EnterIt
        LDR      R3, [R9, #Module_TitleStr]  ; prefix with module title
        ADD      R3, R3, R9
 
-       SWI      XOS_FSControl
+       KSWI     XOS_FSControl
        BVS      CantGoIntoModule
 
        LDR      stack, =SVCSTK

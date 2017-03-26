@@ -30,7 +30,7 @@ Error_Code ROUT
 
         MOV     r1, r0          ; pointer
         MOV     r0, #0          ; base
-        SWI     XOS_ReadUnsigned
+        KSWI    XOS_ReadUnsigned
         Push    "r2"
 
         MOV     r0, sp          ; Error block
@@ -50,7 +50,7 @@ Error_Code ROUT
         MOV     r0, r1
         ADD     r1, r3, #4
         MOV     r2, #252
-        SWI     XOS_GSTrans
+        KSWI    XOS_GSTrans
 
         ; Ensure 0-terminated
         MOV     r0, #0
