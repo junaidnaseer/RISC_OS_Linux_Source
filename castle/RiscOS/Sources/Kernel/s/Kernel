@@ -254,7 +254,10 @@ v8      RN      11
 ; This avoids substantial overhead on Linux.
         MACRO
 $label  KSWI$cond $swi
-$label  BL$cond KSVC
+$label
+      [ PVSys > 0
+        BL$cond KSVC
+      ]
         SWI$cond $swi
         MEND
 
@@ -652,6 +655,7 @@ CallASWIR12 ROUT
 
 ; +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+      [ PVSys > 0
 KSVC    Push    "r10-r12"
         LDR     r11, [r14]              ; extract SWI number to r11
         ADD     r14, r14, #4
@@ -660,6 +664,7 @@ KSVC    Push    "r10-r12"
         Push    "r11,r14"               ; push SWI number and return address
         BIC     r14, r12, #V_bit        ; clear V (some SWIs need original PSR in r12)
         B       SVC_CallASWI
+      ]
 
 ; +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
