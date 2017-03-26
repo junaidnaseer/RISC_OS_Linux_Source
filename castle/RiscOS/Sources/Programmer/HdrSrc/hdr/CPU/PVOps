@@ -39,6 +39,7 @@ PVOpsRelocation SETA 0
 
         MACRO
         PVOpsImports
+        EXTERN  __PVirt_FastSWI
         EXTERN  __PVirt_FindMode
         EXTERN  __PVirt_GetCPSR
         EXTERN  __PVirt_GetVCPU
@@ -113,6 +114,16 @@ $label
  [ PVSys > 1
         STM$cond.DB sp!, {r0-r3, lr}
         BL$cond __PVirt_SWI
+ ]
+        SWI$cond $swi
+        MEND
+
+        ; Simulates a SWI call, corrupts LR
+        MACRO
+$label  fvSWI$cond $swi
+$label
+ [ PVSys > 1
+        BL$cond __PVirt_FastSWI
  ]
         SWI$cond $swi
         MEND
