@@ -5,7 +5,7 @@ sdl: mixed/Linux/Support/sdl.cpp mixed/Linux/SocketKVM/h/protocol mixed/Linux/Su
 mixed/Linux/Support/sdlkey.h: mixed/Linux/Support/sdlkey
 	mixed/Linux/Support/sdlkey > $@
 
-mixed/Linux/Support/sdlkey: mixed/Linux/Support/sdlkey.c
+mixed/Linux/Support/sdlkey: mixed/Linux/Support/sdlkey.c Export/APCS-32/C/Global/h/Keyboard
 	gcc -std=gnu99 -Wall `sdl2-config --cflags --libs` mixed/Linux/Support/sdlkey.c -o $@
 	setfattr -n user.RISC_OS.LoadExec -v 0x00e6ffff00000000 $@ || true
 
