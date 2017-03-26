@@ -28,14 +28,14 @@
 
         AREA    |ASM|, CODE, READONLY
 
-        IMPORT  FSEntry_Open
-        IMPORT  FSEntry_GetBytes
-        IMPORT  FSEntry_PutBytes
         IMPORT  FSEntry_Args
         IMPORT  FSEntry_Close
         IMPORT  FSEntry_File
         IMPORT  FSEntry_Func
         IMPORT  FSEntry_GBPB
+        IMPORT  FSEntry_GetBytes
+        IMPORT  FSEntry_Open
+        IMPORT  FSEntry_PutBytes
 
 fsinfo  DCD     title - base
         DCD     title - base

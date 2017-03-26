@@ -22,8 +22,8 @@
 
         AREA |Asm|, CODE, READONLY
         EXPORT  |__rt_sdiv|
-        EXPORT  |__rt_udiv|
         EXPORT  |__rt_udiv10|
+        EXPORT  |__rt_udiv|
 
 |__rt_udiv|
 |_kernel_udiv|

@@ -37,15 +37,15 @@
 
         AREA |HEAD|, CODE, READONLY
 
-        IMPORT  main
         IMPORT  do_ptrace
+        IMPORT  main
 
+        EXPORT  HAL_Header
         EXPORT  __PVirt_syscall
         EXPORT  __main
-        EXPORT  start_ptrace
-        EXPORT  HAL_Header
-        EXPORT  signal_exit
         EXPORT  ptrace_swi_jump
+        EXPORT  signal_exit
+        EXPORT  start_ptrace
 
 image_start
         DCB     &7F, "ELF"
@@ -76,13 +76,13 @@ header_end
         ; elsewhere will call the RISC OS SWI handler, or a tempoary handler
         ; in this HAL.
 
+        IMPORT  __PVirt_FindMode
+        IMPORT  __PVirt_GetCPSR
+        IMPORT  __PVirt_LoadUsrRegisters
+        IMPORT  __PVirt_MOVS_PC_LR
+        IMPORT  __PVirt_SWI
         IMPORT  __PVirt_SetCPSR_c
         IMPORT  __PVirt_SetCPSR_cs
-        IMPORT  __PVirt_GetCPSR
-        IMPORT  __PVirt_FindMode
-        IMPORT  __PVirt_MOVS_PC_LR
-        IMPORT  __PVirt_LoadUsrRegisters
-        IMPORT  __PVirt_SWI
 
         B       __PVirt_SetCPSR_c
         B       __PVirt_SetCPSR_cs

@@ -32,31 +32,31 @@
         GET     Hdr:Machine.<Machine>
         GET     Hdr:LinuxSyscalls
 
-        EXPORT  __PVirt_SetCPSR_c
-        EXPORT  __PVirt_SetCPSR_cx
-        EXPORT  __PVirt_SetCPSR_cf
-        EXPORT  __PVirt_SetCPSR_cxf
-        EXPORT  __PVirt_SetCPSR_cs
-        EXPORT  __PVirt_SetCPSR_cxs
-        EXPORT  __PVirt_SetCPSR_csf
-        EXPORT  __PVirt_SetCPSR_cxsf
+        EXPORT  __PVirt_FindMode
         EXPORT  __PVirt_GetCPSR
         EXPORT  __PVirt_GetVCPU
-        EXPORT  __PVirt_FindMode
-        EXPORT  __PVirt_MOVS_PC_LR
         EXPORT  __PVirt_LoadUsrRegisters
-        EXPORT  __PVirt_VModeOffsets
+        EXPORT  __PVirt_MOVS_PC_LR
         EXPORT  __PVirt_SWI
+        EXPORT  __PVirt_SetCPSR_c
+        EXPORT  __PVirt_SetCPSR_cf
+        EXPORT  __PVirt_SetCPSR_cs
+        EXPORT  __PVirt_SetCPSR_csf
+        EXPORT  __PVirt_SetCPSR_cx
+        EXPORT  __PVirt_SetCPSR_cxf
+        EXPORT  __PVirt_SetCPSR_cxs
+        EXPORT  __PVirt_SetCPSR_cxsf
+        EXPORT  __PVirt_VModeOffsets
 
-        EXPORT  SetCPSR_Start
-        EXPORT  SetCPSR_Restart
         EXPORT  SetCPSR_End
+        EXPORT  SetCPSR_Restart
+        EXPORT  SetCPSR_Start
 
-        IMPORT  test_vectors
+        EXPORT  SWI_handler
+        EXPORT  call_irq
         EXPORT  init_vcpu
         EXPORT  test_stack
-        EXPORT  call_irq
-        EXPORT  SWI_handler
+        IMPORT  test_vectors
 
 PVirt   SETA    PVSys
 
