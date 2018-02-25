@@ -653,7 +653,7 @@ DumpyTheRegisters  ROUT
         BEQ     UNDEF2
   ]
 
-        MRS     R3, CPSR
+        pvMRS   R3, CPSR
         AND     R3, R3, #&0F
 
         ORR     R2, R1, #I32_bit :OR: F32_bit
