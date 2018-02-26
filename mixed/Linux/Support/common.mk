@@ -163,14 +163,18 @@ Built/qemu_sandbox: $(QEMU) Built/gen_seccomp Built/qemu_path
 	set -o pipefail
 	exec > Built/qemu_sandbox
 ifeq ($(QEMU),/usr/bin/env)
-	echo QEMU_sandbox=
 	echo QEMU=
+	echo -n QEMU_sandbox=\'
 else
+	echo QEMU=/qemu-arm
 	echo -n QEMU_sandbox=\'
 	$(call ldd2sandbox,$(QEMU))
-	echo --ro-bind $(QEMU) /qemu-arm \'
-	echo QEMU=/qemu-arm
+	echo -n '--ro-bind $(QEMU) /qemu-arm '
 endif
+	if $(BWRAP) --die-with-parent --dev-bind / / true; then
+	  echo -n '--die-with-parent '
+	fi
+	echo \'
 
 Built/qemu_path: Built/gen_seccomp
 	set -o pipefail
