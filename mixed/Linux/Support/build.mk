@@ -49,7 +49,7 @@ build: Built/qemu_sandbox ${LINUX_ROM}
 endif
 	set -o pipefail
 	uname -a
-	COMMIT="$$(git rev-parse HEAD)"
+	export COMMIT="$$(git rev-parse HEAD)"
 	echo Building GIT commit: $$COMMIT
 	#
 	mkdir -p build
