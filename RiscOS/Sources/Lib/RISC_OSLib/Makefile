@@ -485,6 +485,7 @@ clean_all:
 	${RM} s.abssym
 	${RM} s.c_abssym
 	${RM} s.a_abssym
+	${RM} rom_link_Entries
 	${XWIPE} lib.* ${WFLAGS}
 	@echo ${COMPONENT}: cleaned
 
@@ -543,14 +544,25 @@ aof.CLib: ${CLIB_ROM_OBJS}
 #
 # Final link for the ROM Image {using given base address}
 #
-rom_link_Entries:
+
+include $(wildcard linked.${TARGET}_address)
+
+ifneq (${ADDRESS},${OLD_ADDRESS})
+FORCEROMLINK = FORCE
+endif
+
+FORCE: ; ${NOP}
+
+rom_link_Entries: rlib.swi kernel.s.k_entries kernel.s.k_entries2 clib.s.cl_entries clib.s.cl_entry2
 	${XTENT} syms.C_Entries kernel.s.k_entries kernel.s.k_entries2 clib.s.cl_entries clib.s.cl_entry2
 	print rlib.swi { >> syms.C_Entries }
 	${XTENT} syms.A_Entries1 kernel.s.k_entries clib.s.cl_entries
 	grep -E -v "^(0x00000000 . )?_swix?$" < syms.A_Entries1 > syms.A_Entries
 	${RM} syms.A_Entries1
+	${TOUCH} rom_link_Entries
 
-rom_link_RISC_OSLib: ${ROM_OBJS} rom_link_Entries
+linked.RISC_OSLib: ${ROM_OBJS} rom_link_Entries rlib.s.rl_entries ${FORCEROMLINK}
+	${RM} $@
 	${XTENT} syms.Entries kernel.s.k_entries kernel.s.k_entries2 clib.s.cl_entries clib.s.cl_entry2 rlib.s.rl_entries
 	print rlib.swi { >> syms.Entries }
 	${LD} ${LDFLAGS} -o linked.RISC_OSLib ${ROM_OBJS} \
@@ -560,8 +572,10 @@ rom_link_RISC_OSLib: ${ROM_OBJS} rom_link_Entries
               -symbols syms.${TARGET} \
               -bin -base ${ADDRESS} \
               -map > map.${TARGET}
+        Echo OLD_ADDRESS=${ADDRESS} { > linked.RISC_OSLib_address }
 
-rom_link_CLib: ${CLIB_ROM_OBJS} rom_link_Entries
+linked.CLib: ${CLIB_ROM_OBJS} rom_link_Entries ${FORCEROMLINK}
+	${RM} $@
 	${XTENT} syms.Entries kernel.s.k_entries kernel.s.k_entries2 clib.s.cl_entries clib.s.cl_entry2
 	print rlib.swi { >> syms.Entries }
 	${LD} ${LDFLAGS} -o linked.CLib ${CLIB_ROM_OBJS} \
@@ -571,8 +585,9 @@ rom_link_CLib: ${CLIB_ROM_OBJS} rom_link_Entries
               -symbols syms.${TARGET} \
               -bin -base ${ADDRESS} \
               -map > map.${TARGET}
+        Echo OLD_ADDRESS=${ADDRESS} { > linked.CLib_address }
 
-rom_link: rom_link_${TARGET}
+rom_link: linked.${TARGET}
 	${CP} linked.${TARGET} ${LINKDIR}.${TARGET} ${CPFLAGS}
 	${CP} syms.${TARGET} ${LINKDIR}.${TARGET}_sym ${CPFLAGS}
 	|
