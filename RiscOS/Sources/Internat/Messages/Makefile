@@ -108,8 +108,9 @@ clean_all:
 	${XWIPE} Resources.* ${WFLAGS}
 	${XWIPE} Processed.* ${WFLAGS}
 	Dir ${UTILS}
+	EnsureDepends Depends
 	${MAKE} clean_all
-	${STRIPDEPEND} Makefile
+	${RM} Depends
 	Up
 	@echo ${COMPONENT}: all cleaned
 
@@ -210,6 +211,7 @@ ${DICTIONARY}:
 
 ${LOCALECHK} ${TAGEXT}:
 	Dir ${UTILS}
+	EnsureDepends Depends
 	${MAKE}
 	Up
 

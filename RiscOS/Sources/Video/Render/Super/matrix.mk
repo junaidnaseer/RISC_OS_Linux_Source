@@ -18,4 +18,4 @@ include CApp
 include HostTools
 include AppLibs
 
-# Dynamic dependencies:
+include matrixDepends

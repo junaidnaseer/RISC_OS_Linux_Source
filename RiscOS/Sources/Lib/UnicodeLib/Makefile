@@ -32,11 +32,13 @@ include CLibrary
 clean::
 	${RM} mkunictype
 	${RM} c${SEP}unictype
+	${RM} mkunictype_Depends
 
 unictype: mkunictype data${SEP}UnicodeData
 	${RUN}mkunictype < data${SEP}UnicodeData > c${SEP}unictype
 
 mkunictype: mkunictype.c
+	EnsureDepends mkunictype_Depends
 	${MAKE} -f mkunictype/mk THROWBACK=${THROWBACK}
 
 include Depends

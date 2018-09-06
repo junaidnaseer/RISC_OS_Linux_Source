@@ -107,6 +107,7 @@ clean:
 	${WIPE} @.sources.ActionButt.o.* ${WFLAGS}
 	$(RM) $(TARGET)
 	$(RM) AutoGenMF
+	$(RM) AutoGenDepends
 	@echo $(COMPONENT): cleaned
 
 local_dirs:
@@ -152,4 +153,4 @@ dirs:
 $(TARGET): local_dirs
 	Obey	@.!Mk
 
-# Dynamic dependencies:
+include Depends

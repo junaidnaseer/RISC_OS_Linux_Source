@@ -40,12 +40,14 @@ clean::
 	${RM} Matrix2
 	@${RM} s.Matrix1
 	@${RM} s.Matrix2
+	@${RM} matrixDepends
 
 ${ROM_OBJECT} ${SA_OBJECT} ${DBG_OBJECT}: ${MATRIX1} ${MATRIX2}
 
 .SUFFIXES: .c .s
 
 .c.s:
+	EnsureDepends matrixDepends
 	${MAKE} -f matrix/mk COMPONENT=$* THROWBACK=${THROWBACK}
 	${RUN}$* $@
 

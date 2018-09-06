@@ -17,5 +17,4 @@
 include HostTools
 include AppLibs
 include CApp
-
-# Dynamic dependencies:
+include Depends

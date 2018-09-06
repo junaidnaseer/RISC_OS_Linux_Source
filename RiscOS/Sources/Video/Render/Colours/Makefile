@@ -42,6 +42,7 @@ clean::
 	${XWIPE} Palettes.* ${WFLAGS}
 	${XWIPE} MkTables.o.* ${WFLAGS}
 	${RM} MkTables.maketables
+	${RM} MkTables.Depends
 
 #
 # Static dependencies:
@@ -55,6 +56,7 @@ MakeTables: MkTables.maketables
 
 MkTables.maketables: MkTables.c.maketables
 	${CD} MkTables
+	EnsureDepends Depends
 	${MAKE} -f maketables/mk COMPONENT=maketables THROWBACK=${THROWBACK}
 	${CD} ^
 

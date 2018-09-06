@@ -20,5 +20,4 @@ CDEFINES = -DRISCOS -DASMHUFF
 
 include HostTools
 include CApp
-
-# Dynamic dependencies:
+include utilDepends
