@@ -26,7 +26,7 @@ endif
 
 TOKHELPSRC      = ${TOKENSOURCE}
 HELPSRC         = HelpStrs
-ROM_OBJECTS     = GetAll.o
+ROM_OBJECTS     = GetAll.o End.o
 KERNEL_MODULE   = bin${SEP}${COMPONENT}
 ASFLAGS        += -PD "FreezeDevRel SETL {${FREEZE_DEV_REL}}" -APCS 3/32bit/nofp/noswst
 CFLAGS          = -Wpn -APCS 3/32bit/nofp/noswst -IC:
