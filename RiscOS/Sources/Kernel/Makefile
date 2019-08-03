@@ -61,6 +61,10 @@ EXPORTS         = ${EXP_HDR}.DBellDevice \
                   ${C_EXP_HDR}.VduExt \
                   ${C_EXP_HDR}.VIDCList
 
+ifeq (${Machine},Linux)
+ROM_OBJECTS += LinuxC.o
+endif
+
 include StdTools
 include AAsmModule
 include StdRules
@@ -95,6 +99,16 @@ ${KERNEL_MODULE}: ${ROM_OBJECTS} ${DIRS}
 	${TOGPA} -s ${KERNEL_MODULE}_aif ${KERNEL_MODULE}_gpa
 
 GetAll.o:  ${TOKHELPSRC}
+
+
+#
+# Internal C header
+#
+o.LinuxC: h.Kernel
+
+h.Kernel: o.GenHeader
+	${LD} -bin -o $@ o.GenHeader
+	SetType $@ FFF
 
 #
 # Custom exports:
@@ -206,5 +220,6 @@ Global.h.VIDCList: hdr.VIDCList
 clean::
 	${XWIPE} Global ${WFLAGS}
 	${XWIPE} bin    ${WFLAGS}
+	${RM} h.kernel
 
 include Depends
