@@ -397,5 +397,3 @@ resources-: resources_extra resources_cmdhelp resources_common
 #
 ${TOKENSOURCE}: ${HELPSRC} ${TOKENS}
         ${TOKENISE} ${TOKENS} ${HELPSRC} $@
-
-# EOF
