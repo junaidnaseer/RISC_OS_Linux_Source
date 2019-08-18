@@ -40,6 +40,7 @@ P%=code%
 dcb "Testing Linux system call"
 dcb 10
 .hw2%
+align
 
 .syscall%
 push {lr}
