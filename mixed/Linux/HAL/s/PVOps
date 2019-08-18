@@ -446,8 +446,8 @@ Device_Sleep
 HAL_InitDevices
         LDR     r2, =image_start + OSROM_HALSize
         LDR     r1, [r2, #OSHdr_Entries]
-        ADD     r1, r2, r1
-        LDR     r3, [r1, #OS_AddDevice * 4]
+        ADD     r2, r2, r1
+        LDR     r3, [r2, #OS_AddDevice * 4]
         MOV     r0, #0
         ADR     r1, Device_PSR
         ADD     pc, r3, r2
