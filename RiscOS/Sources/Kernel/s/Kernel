@@ -259,7 +259,6 @@ MinAplWork * 40*1024         ; minimum size of AplWork
 
 ; Fixed addresses
 
-MEMCADR  * &03600000
         GBLL    ROMatTop
 ROM      * &FC000000
 ROMatTop SETL {TRUE}
