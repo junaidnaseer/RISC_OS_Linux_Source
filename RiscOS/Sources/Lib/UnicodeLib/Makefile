@@ -39,4 +39,4 @@ unictype: mkunictype data${SEP}UnicodeData
 mkunictype: mkunictype.c
 	${MAKE} -f mkunictype/mk THROWBACK=${THROWBACK}
 
-# Dynamic dependencies:
+include Depends

@@ -41,5 +41,4 @@ INSTRES_FILES = ROM.Sprites
 INSTRES_VERSION = Messages
 
 include CModule
-
-# Dynamic dependencies:
+include Depends

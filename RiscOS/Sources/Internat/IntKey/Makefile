@@ -75,4 +75,4 @@ keyconvert: keyconvert.c unicdata.c
 
 install: ${LAYOUTS}
 
-# Dynamic dependencies:
+include Depends

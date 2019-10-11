@@ -65,5 +65,4 @@ symlink_extra:
 endif
 
 include AAsmModule
-
-# Dynamic dependencies:
+include Depends

@@ -40,4 +40,4 @@ clean::
 scrambler: scrambler.c
 	${MAKE} -f scrambler/mk THROWBACK=${THROWBACK}
 
-# Dynamic dependencies:
+include Depends

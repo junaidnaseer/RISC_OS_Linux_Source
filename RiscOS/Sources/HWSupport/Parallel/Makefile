@@ -28,5 +28,4 @@ HEADER1   = Parallel
 
 include StdTools
 include AAsmModule
-
-# Dynamic dependencies:
+include Depends

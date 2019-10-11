@@ -20,5 +20,4 @@ OBJS      = send
 HDRS      = PDebug
 
 include CLibrary
-
-# Dynamic dependencies:
+include Depends

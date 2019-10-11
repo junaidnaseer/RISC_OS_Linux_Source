@@ -27,5 +27,4 @@ HDRS        =
 ASMHDRS     = MakePSFont
 
 include CModule
-
-# Dynamic dependencies:
+include Depends

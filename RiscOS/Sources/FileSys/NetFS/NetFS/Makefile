@@ -22,5 +22,4 @@ HELPSRC    = HelpTexts
 
 include StdTools
 include AAsmModule
-
-# Dynamic dependencies:
+include Depends

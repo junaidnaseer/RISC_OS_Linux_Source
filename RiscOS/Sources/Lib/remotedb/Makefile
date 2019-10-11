@@ -23,5 +23,4 @@ CDEFINES  = -DCOMPAT_INET4
 CINCLUDES = -ITCPIPLibs:,C:
 
 include CLibrary
-
-# Dynamic dependencies:
+include Depends

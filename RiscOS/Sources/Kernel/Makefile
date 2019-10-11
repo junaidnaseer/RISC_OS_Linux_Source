@@ -203,4 +203,4 @@ clean::
 	${XWIPE} Global ${WFLAGS}
 	${XWIPE} bin    ${WFLAGS}
 
-# Dynamic dependencies:
+include Depends

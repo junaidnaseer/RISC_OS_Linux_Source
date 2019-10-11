@@ -33,5 +33,4 @@ RES_AREA    = files_messages
 RESFSDIR    = ${RESDIR}.${COMPONENT}
 
 include CModule
-
-# Dynamic dependencies:
+include Depends

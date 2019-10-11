@@ -29,5 +29,4 @@ INSTRES_FILES = LCD SelectLCD
 
 include StdTools
 include AAsmModule
-
-# Dynamic dependencies:
+include Depends
